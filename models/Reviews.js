@@ -29,4 +29,4 @@ const Reviews = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("User", Reviews);
+module.exports = mongoose.model("Reviews", Reviews);

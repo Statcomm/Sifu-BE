@@ -1,23 +1,20 @@
 const express = require("express");
 const passport = require("passport");
-const {
-  signup,
-  signin,
-  forgotPassword,
-  resetPassword,
-} = require("./Controller");
+const { signUp, signIn, getSifus } = require("./Controller");
 
 // Create a mini express application
 const router = express.Router();
 
-router.post("/signup", signup);
+router.post("/signup", signUp);
 
 router.post(
   "/signin",
   passport.authenticate("local", { session: false }),
-  signin
+  signIn
 );
-router.put("/reset-password/:userId", resetPassword);
-router.put("/forgot-password", forgotPassword);
+
+router.get("/", getSifus);
+
+router;
 
 module.exports = router;

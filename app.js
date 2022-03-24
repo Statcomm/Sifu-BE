@@ -1,12 +1,7 @@
 const express = require("express");
 const connectDb = require("./database");
-const accountRoutes = require("./api/Accounts/account.routes");
-const beneficiaryRoute = require("./api/Beneficiaries/beneficiaries.routes");
-const userRoutes = require("./api/Users/users.routes");
-const profileRoutes = require("./api/Profiles/profiles.routes");
-const transactionRoutes = require("./api/Transactions/transactions.routes");
+const sifuRoutes = require("./api/Sifus/Routes");
 const { localStrategy, jwtStrategy } = require("./middleware/passport");
-const connectDB = require("./database");
 const passport = require("passport");
 const cors = require("cors");
 const path = require("path");
@@ -15,7 +10,7 @@ require("dotenv").config();
 const {
   routerNotFound,
   logger,
-  hundleError,
+  handleError,
 } = require("./middleware/middleware");
 
 app.use((req, res, next) => {
@@ -35,14 +30,14 @@ app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use("/", userRoutes);
+app.use("/sifus", sifuRoutes);
 
 //middleware
 app.use("/media", express.static(path.join(__dirname, "media")));
 app.use(routerNotFound);
 
 //middleware hundel Errors
-app.use(hundleError);
+app.use(handleError);
 connectDb();
 app.listen(8000, () => {
   console.log("The application is running on localhost:8000");
